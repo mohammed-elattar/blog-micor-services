@@ -4,7 +4,7 @@ const PostCreate = () => {
   const [title, setTitle] = useState('');
 
   const onChange = (e) => {
-    setTitle(e.target.val);
+    setTitle(e.target.value);
   };
 
   const onSubmit = async (e) => {
