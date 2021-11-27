@@ -1,9 +1,10 @@
 const express = require('express');
 const randomBytes = require('random-bytes');
 const app = express();
+const cors = require('cors');
 const port = 3011;
 app.use(express.json());
-
+app.use(cors());
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
