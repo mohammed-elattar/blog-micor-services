@@ -7,11 +7,14 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.post('/events/', (req, res) => {
+app.post('/events', async (req, res) => {
   const event = req.body;
-  axios.post('http://loclahost:3010/events', event);
-  axios.post('http://loclahost:3011/events', event);
-  axios.post('http://loclahost:3012/events', event);
+  axios.post('http://localhost:3010/events', event).catch((err) => {
+    console.log(err.message);
+  });
+  axios.post('http://localhost:3011/events', event).catch((err) => {
+    console.log(err.message);
+  });
 
   res.send({ status: 'OK' });
 });
