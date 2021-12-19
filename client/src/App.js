@@ -1,14 +1,11 @@
-import PostCreate from './PostCreate';
+import React from 'react';
 import PostList from './PostList';
 
-function App() {
+const App = () => {
   return (
     <div className='container'>
-      <h1>Create Post</h1>
-      <PostCreate />
       <PostList />
     </div>
   );
-}
-
+};
 export default App;

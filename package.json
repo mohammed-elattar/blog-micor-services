@@ -1,0 +1,12 @@
+{
+    "scripts": {
+        "start:posts": "nodemon posts --prefix posts",
+        "start:comments": "nodemon comments --prefix comments",
+        "start:frontend": "npm start --prefix client",
+        "dev": "concurrently \"yarn start:posts\" \"yarn start:comments\" \"yarn start:frontend\""
+    },
+    "dependencies": {
+        "concurrently": "^6.5.1",
+        "nodemon": "^2.0.15"
+    }
+}
