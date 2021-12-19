@@ -2,8 +2,9 @@
     "scripts": {
         "start:posts": "nodemon posts --prefix posts",
         "start:comments": "nodemon comments --prefix comments",
+        "start:event-bus": "nodemon event-bus --prefix event-bus",
         "start:frontend": "npm start --prefix client",
-        "dev": "concurrently \"yarn start:posts\" \"yarn start:comments\" \"yarn start:frontend\""
+        "dev": "concurrently \"yarn start:posts\" \"yarn start:comments\" \"yarn start:frontend\" \"yarn start:event-bus\""
     },
     "dependencies": {
         "concurrently": "^6.5.1",
