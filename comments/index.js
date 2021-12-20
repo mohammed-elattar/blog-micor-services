@@ -2,6 +2,7 @@ const express = require('express');
 const randomBytes = require('random-bytes');
 const app = express();
 const cors = require('cors');
+const { default: axios } = require('axios');
 const port = 3011;
 app.use(express.json());
 app.use(cors());

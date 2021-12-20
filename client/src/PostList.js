@@ -8,7 +8,6 @@ const PostList = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    debugger;
     await axios.post('http://localhost:3010/posts', {
       title,
     });
