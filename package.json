@@ -5,7 +5,8 @@
         "start:event-bus": "nodemon event-bus --prefix event-bus",
         "start:frontend": "npm start --prefix client",
         "start:query": "npm start --prefix query",
-        "dev": "concurrently \"yarn start:posts\" \"yarn start:comments\" \"yarn start:frontend\" \"yarn start:event-bus\" \"yarn start:query\""
+        "start:moderation": "npm start --prefix moderation",
+        "dev": "concurrently \"yarn start:posts\" \"yarn start:comments\" \"yarn start:frontend\" \"yarn start:event-bus\" \"yarn start:query\" \"yarn start:moderation\""
     },
     "dependencies": {
         "concurrently": "^6.5.1",
