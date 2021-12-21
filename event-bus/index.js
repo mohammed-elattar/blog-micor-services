@@ -3,12 +3,16 @@ const express = require('express');
 const app = express();
 const port = 3012;
 app.use(express.json());
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+
+const events = [];
+
+app.get('/events', (req, res) => {
+  res.send(events);
 });
 
 app.post('/events', async (req, res) => {
   const event = req.body;
+  events.push(event);
   axios.post('http://localhost:3010/events', event).catch((err) => {
     console.log(err.message);
   });

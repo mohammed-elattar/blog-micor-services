@@ -1,16 +1,11 @@
+const { default: axios } = require('axios');
 const express = require('express');
 const app = express();
 const port = 3013;
 app.use(express.json());
 const posts = {};
-app.get('/posts', (req, res) => {
-  res.send(posts);
-});
 
-app.post('/events', (req, res) => {
-  console.log('recieved events on query service');
-  const { type, data } = req.body;
-
+const handleEvent = (type, data) => {
   if (type === 'PostCreated') {
     const { id, title } = data;
 
@@ -30,10 +25,24 @@ app.post('/events', (req, res) => {
     comment.content = content;
     comment.status = status;
   }
+};
+app.get('/posts', (req, res) => {
+  res.send(posts);
+});
+
+app.post('/events', (req, res) => {
+  console.log('recieved events on query service');
+  const { type, data } = req.body;
+
+  handleEvent(type, data);
 
   res.send({});
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  const res = await axios.get('http://localhost:3012/events');
+  for (let event of res.data) {
+    handleEvent(event);
+  }
   console.log(`Example app listening at http://localhost:${port}`);
 });
