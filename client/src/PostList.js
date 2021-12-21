@@ -16,8 +16,15 @@ const PostList = () => {
     await fetchPosts();
   };
 
+  const addComment = async ({ postId, content }) => {
+    await axios.post(`http://localhost:3011/posts/${postId}/comments`, {
+      content,
+    });
+    await fetchPosts();
+  };
+
   const fetchPosts = async () => {
-    const res = await axios.get('http://localhost:3010/posts');
+    const res = await axios.get('http://localhost:3013/posts');
 
     setPosts(res.data);
   };
@@ -35,7 +42,11 @@ const PostList = () => {
       >
         <div className='card-body'>
           <h3>{post.title}</h3>
-          <CommentList postId={post.id} />
+          <CommentList
+            postId={post.id}
+            comments={post.comments}
+            addComment={addComment}
+          />
         </div>
       </div>
     );

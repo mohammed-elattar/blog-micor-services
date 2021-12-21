@@ -2,12 +2,13 @@ const express = require('express');
 const app = express();
 const port = 3013;
 app.use(express.json());
-
+const posts = {};
 app.get('/posts', (req, res) => {
   res.send(posts);
 });
 
 app.post('/events', (req, res) => {
+  console.log('recieved events on query servcie', req.body);
   const { type, data } = req.body;
 
   if (type === 'PostCreated') {
@@ -22,8 +23,6 @@ app.post('/events', (req, res) => {
     const post = posts[postId];
     post.comments.push({ id, content });
   }
-
-  console.log(posts);
 
   res.send({});
 });
