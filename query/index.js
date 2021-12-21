@@ -8,7 +8,7 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/events', (req, res) => {
-  console.log('recieved events on query servcie', req.body);
+  console.log('recieved events on query service');
   const { type, data } = req.body;
 
   if (type === 'PostCreated') {
@@ -18,10 +18,17 @@ app.post('/events', (req, res) => {
   }
 
   if (type === 'CommentCreated') {
-    const { id, content, postId } = data;
-
+    const { id, content, postId, status } = data;
     const post = posts[postId];
-    post.comments.push({ id, content });
+    post.comments.push({ id, content, status });
+  }
+
+  if (type === 'CommentUpdated') {
+    const { id, postId, content, status } = data;
+    const comments = posts[postId].comments;
+    const comment = comments.find((comment) => id === comment.id);
+    comment.content = content;
+    comment.status = status;
   }
 
   res.send({});

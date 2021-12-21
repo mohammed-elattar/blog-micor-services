@@ -12,8 +12,21 @@ app.get('/', (req, res) => {
 
 const commentsByPostId = [];
 
-app.post('/events', (req, res) => {
-  console.log('recieved events on Comments servcie', req.body);
+app.post('/events', async (req, res) => {
+  console.log('recieved events on Comments service');
+
+  const { type, data } = req.body;
+  if ('CommentModerated' === type) {
+    const { id, postId } = data;
+    // const comments = commentsByPostId[postId];
+    // const comment = comments.find((comment) => id === comment.id);
+    commentsByPostId[postId][id] = { ...data };
+
+    await axios.post('http://localhost:3012/events', {
+      type: 'CommentUpdated',
+      data,
+    });
+  }
   return;
 });
 
@@ -27,7 +40,7 @@ app.post('/posts/:id/comments', async (req, res) => {
   const postId = req.params.id;
   const postComments = commentsByPostId[postId] || [];
   const content = req.body.content;
-  const newComment = { id, content };
+  const newComment = { id, content, status: 'pending' };
   postComments.push(newComment);
   commentsByPostId[req.params.id] = postComments;
   await axios.post('http://localhost:3012/events', {

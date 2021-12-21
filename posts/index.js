@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 const posts = {};
 
 app.post('/events', (req, res) => {
-  console.log('recieved events on posts servcie', req.body);
+  console.log('recieved events on posts service');
   return;
 });
 
