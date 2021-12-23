@@ -1,0 +1,99 @@
+
+#!/bin/bash
+
+#######################################
+# FUNCTIONS
+#######################################
+
+# build images
+buildImages () {
+cd ../comments 
+docker build -t mseel3ttar/comments .
+
+cd ../event-bus
+docker build -t mseel3ttar/event-bus .
+
+cd ../posts
+docker build -t mseel3ttar/posts .
+
+cd ../moderation
+docker build -t mseel3ttar/moderation .
+
+cd ../query
+docker build -t mseel3ttar/query .
+
+cd ../client
+docker build -t mseel3ttar/client .
+
+cd ../infra
+}
+
+
+# publish images
+publishImages () {
+cd ../comments 
+docker push mseel3ttar/comments
+
+cd ../event-bus
+docker push mseel3ttar/event-bus
+
+cd ../posts
+docker push mseel3ttar/posts
+
+cd ../moderation
+docker push mseel3ttar/moderation
+
+cd ../query
+docker push mseel3ttar/query
+
+cd ../client
+docker push mseel3ttar/client
+
+cd ../infra
+}
+
+# restart kubernetes services
+restartDeployments () {
+kubectl rollout restart deployment comments-depl
+kubectl rollout restart deployment posts-depl
+kubectl rollout restart deployment event-bus-depl
+kubectl rollout restart deployment query-depl
+kubectl rollout restart deployment moderation-depl
+kubectl rollout restart deployment client-depl
+
+}
+
+
+#######################################
+# MENU
+#######################################
+
+case "$1" in
+    buildImages)
+        buildImages
+        ;;
+    publishImages)
+        publishImages
+        ;;
+    restartDeployments)
+        restartDeployments 
+        ;;
+    # yarn)
+    #     yarn "${@:2}"
+    #     ;;
+    *)
+        cat << EOF
+
+Command line interface for the microservices blog demo.
+
+Usage:
+    commands <command> [options] [arguments]
+
+Available commands:
+    buildImages ................................... build all services images
+    publishImages  ................................... push all images to the docker hub
+    restartDeployments .................................. restart deployments to pull the latest images
+EOF
+        exit
+        ;;
+esac
