@@ -60,6 +60,7 @@ kubectl rollout restart deployment event-bus-depl
 kubectl rollout restart deployment query-depl
 kubectl rollout restart deployment moderation-depl
 kubectl rollout restart deployment client-depl
+kubectl apply -f k8s/ingress-srv.yaml
 
 }
 

@@ -17,11 +17,7 @@ app.post('/events', (req, res) => {
   return;
 });
 
-app.get('/posts', (req, res) => {
-  return res.json(posts);
-});
-
-app.post('/posts', async (req, res) => {
+app.post('/posts/create', async (req, res) => {
   const random = await randomBytes(4);
   const id = random.toString('hex');
   const title = req.body.title;

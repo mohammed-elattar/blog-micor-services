@@ -8,7 +8,7 @@ const PostList = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    await axios.post('http://localhost:3010/posts', {
+    await axios.post('http://posts.com/posts/create', {
       title,
     });
 
@@ -17,14 +17,14 @@ const PostList = () => {
   };
 
   const addComment = async ({ postId, content }) => {
-    await axios.post(`http://comments-srv/posts/${postId}/comments`, {
+    await axios.post(`http://posts.com/posts/${postId}/comments`, {
       content,
     });
     await fetchPosts();
   };
 
   const fetchPosts = async () => {
-    const res = await axios.get('http://query-srv/posts');
+    const res = await axios.get('http://posts.com/posts');
 
     setPosts(res.data);
   };
